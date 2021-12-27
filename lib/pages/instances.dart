@@ -1,12 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:minebird/utils/file.dart';
 import 'package:minebird/widgets/nav_bar.dart';
 import 'package:minebird/widgets/dialog.dart';
 
 import '../widgets/card.dart';
 
 List<String> instanceNames = [];
+String filename = "";
+String json = "";
+int index = 0;
 
 class InstancesPage extends StatefulWidget {
   InstancesPage({Key? key, required this.title}) : super(key: key);
@@ -81,17 +85,23 @@ class _InstancesPageState extends State<InstancesPage> {
               child: Container(
                 margin: EdgeInsets.all(36),
                 child: FloatingActionButton(
-                  onPressed: () => SDialog.setDialogShown(
+                  onPressed: () => SDialog.showWizardDialog(
                       () => {
                             Navigator.of(context).pop(),
-                            addCard(textEditingController.text.toString())
+                            addCard(textEditingController.text.toString()),
+                            MinebirdIO.createInstancesFile()
+                                .then((value) => {
+                                  filename = value,
+                                  json = MinebirdIO.encodeJson(textEditingController.text, index),
+                                  MinebirdIO.writeToFile(filename, json)
+                                }),
                           },
                       () => {
                             Navigator.of(context).pop(),
                           },
                       context,
                       "Add Instance",
-                      "Instance Name:",
+                      "Instance Name",
                       textEditingController),
                   child: Icon(
                     Icons.add,

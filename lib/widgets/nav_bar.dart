@@ -17,7 +17,8 @@ class NavBar extends StatelessWidget {
         alignment: Alignment.centerLeft,
         child: Container(
             alignment: Alignment.topCenter,
-            width: 300,
+            width: (MediaQuery.of(context).size.width * 0.175).clamp(300, 360),
+            height: (MediaQuery.of(context).size.height * 0.85),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(25),
               color: Theme.of(context).accentColor,

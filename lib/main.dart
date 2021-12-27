@@ -5,6 +5,7 @@ import 'package:minebird/pages/instances.dart';
 import 'package:minebird/pages/mods.dart';
 import 'package:minebird/pages/settings.dart';
 import 'package:desktop_window/desktop_window.dart';
+import 'package:minebird/utils/file.dart';
 
 void main() {
   runApp(Minebird());
@@ -14,6 +15,9 @@ class Minebird extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DesktopWindow.setMinWindowSize(Size(900, 720));
+    //MinebirdIO.getApplicationDir().then((value) => print("value"));
+    MinebirdIO.createInstancesFile();
+    // MinebirdIO.addInstanceJSON("instanceName", 1);
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
