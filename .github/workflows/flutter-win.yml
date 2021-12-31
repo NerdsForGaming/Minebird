@@ -24,4 +24,13 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      - run: ls
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '12.x'
+      - uses: subosito/flutter-action@v1.5.3
+      - run: flutter pub get
+      # - run: flutter test
+      - run: flutter config --enable-windows-desktop
+      - run: flutter create . --project-name=minebird
+      - run: flutter build windows
+        
