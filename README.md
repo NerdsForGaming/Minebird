@@ -3,11 +3,11 @@ Next-Gen Minecraft launcher in Flutter, with easy modding support and multiple i
 
 # Todo ✔️
 - [ ] Finalize pages
-- [ ] Implement settings page
 - [ ] Implement instance saving
 - [ ] Launch Minecraft
 - [ ] Account management
-- [ ] Test on Windows and macOS
+- [x] Test on Windows 
+- [ ] Test on macOS
 - [ ] Publish on Flathub
 
 # Screenshots 🖼️
