@@ -33,4 +33,7 @@ jobs:
       - run: flutter config --enable-windows-desktop
       - run: flutter create . --project-name=minebird
       - run: flutter build windows
-        
+      - uses: actions/upload-artifact@v2
+        with:
+          name: artifact
+          path: build
