@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:minebird/utils/file.dart';
 
 import 'dialog.dart';
 
@@ -6,10 +7,11 @@ class InstanceCard extends StatefulWidget {
   const InstanceCard({
     Key? key,
     required this.title,
+    required this.url,
   }) : super(key: key);
 
   final List<String> title;
-
+  final List<String> url;
   @override
   _InstanceCardState createState() => _InstanceCardState();
 }
@@ -51,10 +53,11 @@ class _InstanceCardState extends State<InstanceCard> {
                 children: [
                   Ink(
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(25),
+                        borderRadius: BorderRadius.circular(20),
                         image: DecorationImage(
-                          image: NetworkImage(
-                              'https://f8n-production.s3.amazonaws.com/creators/profile/c8gley51s-nyan-cat-large-gif-gif-mbf1sa.gif'),
+                          colorFilter: ColorFilter.mode(
+                              Colors.black.withOpacity(0.5), BlendMode.srcOver),
+                          image: NetworkImage(widget.url[index]),
                           fit: BoxFit.cover,
                         )),
                   ),
@@ -77,6 +80,8 @@ class _InstanceCardState extends State<InstanceCard> {
                                   onPressed: () => SDialog.showConfirmDialog(
                                       () => {
                                             setState(() {
+                                              MinebirdIO.deleteInstance(
+                                                  widget.title[index]);
                                               widget.title.removeAt(index);
                                             }),
                                             Navigator.of(context).pop(),

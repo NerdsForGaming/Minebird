@@ -7,7 +7,10 @@ class SDialog {
       BuildContext context,
       String title,
       String fTitle,
-      TextEditingController textEditingController) {
+      String uTitle,
+      TextEditingController instanceNameController,
+      TextEditingController urlController
+      ) {
     showDialog(
       context: context,
       builder: (BuildContext context) => new SimpleDialog(
@@ -24,10 +27,38 @@ class SDialog {
                 Container(
                   margin: EdgeInsets.only(right: 24),
                   child: TextField(
-                      controller: textEditingController,
+                      controller: instanceNameController,
                       cursorColor: Theme.of(context).textTheme.subtitle1!.color,
                       decoration: InputDecoration(
                         hintText: fTitle,
+                        enabledBorder: new UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.grey,
+                            width: 1.0,
+                          ),
+                        ),
+                        focusedBorder: new UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.cyanAccent,
+                            width: 1.0,
+                          ),
+                        ),
+                      ),
+                      style: TextStyle(
+                        fontSize: 12,
+                        height: 2.0,
+                        color: Theme.of(context).textTheme.subtitle1!.color,
+                      )),
+                ),
+                SizedBox(height: 24),
+                Text(uTitle),
+                Container(
+                  margin: EdgeInsets.only(right: 24),
+                  child: TextField(
+                      controller: urlController,
+                      cursorColor: Theme.of(context).textTheme.subtitle1!.color,
+                      decoration: InputDecoration(
+                        hintText: uTitle,
                         enabledBorder: new UnderlineInputBorder(
                           borderSide: BorderSide(
                             color: Colors.grey,

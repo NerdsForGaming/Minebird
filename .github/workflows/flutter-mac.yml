@@ -35,5 +35,5 @@ jobs:
       - run: flutter build macos
       - uses: actions/upload-artifact@v2
         with:
-          name: artifact
+          name: artifacts
           path: build

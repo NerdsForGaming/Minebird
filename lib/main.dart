@@ -5,7 +5,6 @@ import 'package:minebird/pages/instances.dart';
 import 'package:minebird/pages/mods.dart';
 import 'package:minebird/pages/settings.dart';
 import 'package:desktop_window/desktop_window.dart';
-import 'package:minebird/utils/file.dart';
 
 void main() {
   runApp(Minebird());
@@ -16,7 +15,6 @@ class Minebird extends StatelessWidget {
   Widget build(BuildContext context) {
     DesktopWindow.setMinWindowSize(Size(900, 720));
     //MinebirdIO.getApplicationDir().then((value) => print("value"));
-    MinebirdIO.createInstancesFile();
     // MinebirdIO.addInstanceJSON("instanceName", 1);
     return MaterialApp(
       title: 'Flutter Demo',
@@ -34,14 +32,12 @@ class Minebird extends StatelessWidget {
       ),
       home: HomePage(title: 'Minebird - Home'),
       routes: {
-        'home': (BuildContext context) =>
-            HomePage(title: "Minebird - Home"),
+        'home': (BuildContext context) => HomePage(title: "Minebird - Home"),
         'accounts': (BuildContext context) =>
             AccountsPage(title: "Minebird - Accounts"),
         'instances': (BuildContext context) =>
             InstancesPage(title: "Minebird - Instances"),
-        'mods': (BuildContext context) =>
-            ModsPage(title: "Minebird - Mods"),
+        'mods': (BuildContext context) => ModsPage(title: "Minebird - Mods"),
         'settings': (BuildContext context) =>
             SettingsPage(title: "Minebird - Settings"),
       },

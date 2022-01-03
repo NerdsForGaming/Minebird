@@ -8,6 +8,7 @@ import 'package:minebird/widgets/dialog.dart';
 import '../widgets/card.dart';
 
 List<String> instanceNames = [];
+List<String> url = [];
 String filename = "";
 String json = "";
 int index = 0;
@@ -21,17 +22,19 @@ class InstancesPage extends StatefulWidget {
 }
 
 class _InstancesPageState extends State<InstancesPage> {
-  final textEditingController = TextEditingController();
+  final instanceNameController = TextEditingController();
+  final urlController = TextEditingController();
 
-  void addCard(String title) {
+  void addCard(String title, String imageUrl) {
     setState(() {
-      instanceNames.add(textEditingController.text);
+      instanceNames.add(title);
+      url.add(imageUrl);
     });
   }
 
   @override
   void dispose() {
-    textEditingController.dispose();
+    instanceNameController.dispose();
     super.dispose();
   }
 
@@ -56,9 +59,7 @@ class _InstancesPageState extends State<InstancesPage> {
                     Container(
                       margin: EdgeInsets.only(top: 56),
                       child: Scaffold(
-                        body: InstanceCard(
-                          title: instanceNames,
-                        ),
+                        body: InstanceCard(title: instanceNames, url: url),
                       ),
                     ),
                   ],
@@ -88,13 +89,25 @@ class _InstancesPageState extends State<InstancesPage> {
                   onPressed: () => SDialog.showWizardDialog(
                       () => {
                             Navigator.of(context).pop(),
-                            addCard(textEditingController.text.toString()),
-                            MinebirdIO.createInstancesFile()
-                                .then((value) => {
-                                  filename = value,
-                                  json = MinebirdIO.encodeJson(textEditingController.text, index),
-                                  MinebirdIO.writeToFile(filename, json)
-                                }),
+                            addCard(instanceNameController.text.toString(),
+                                urlController.text.toString()),
+                            MinebirdIO.createInstance(instanceNames.last,
+                                urlController.text, "1.18.1"),
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: const Text('Instance created!'),
+                                action: new SnackBarAction(
+                                  label: 'Undo',
+                                  onPressed: () {
+                                    MinebirdIO.deleteInstance(
+                                        instanceNames.last);
+                                    setState(() {
+                                      instanceNames.removeLast();
+                                    });
+                                  },
+                                ),
+                              ),
+                            )
                           },
                       () => {
                             Navigator.of(context).pop(),
@@ -102,7 +115,9 @@ class _InstancesPageState extends State<InstancesPage> {
                       context,
                       "Add Instance",
                       "Instance Name",
-                      textEditingController),
+                      "Image Url",
+                      instanceNameController,
+                      urlController),
                   child: Icon(
                     Icons.add,
                     color: Theme.of(context).textTheme.subtitle1!.color,
