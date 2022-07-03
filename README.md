@@ -1,6 +1,9 @@
 # Minebird 🐦
 Next-Gen Minecraft launcher in Flutter, with easy modding support and multiple instances planned.
 
+# ⚠️ Development currently stalled ⚠️
+Development is currently stalled due to a bug in dart:io (which affects most http libraries).
+
 # Todo ✔️
 - [ ] Finalize pages
 - [x] Implement instance saving
